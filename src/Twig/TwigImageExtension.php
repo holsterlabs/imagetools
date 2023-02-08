@@ -34,14 +34,14 @@ class TwigImageExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('img_resizenew', [$this, 'resize']),
+            new TwigFilter('img_resize', [$this, 'resize']),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('imagenew', [$this, 'image']),
+            new TwigFunction('image', [$this, 'image']),
         ];
     }
 
