@@ -1,0 +1,21 @@
+{
+    "name": "holsterlabs/image-bundle",
+    "description": "",
+    "type": "symfony-bundle",
+    "require": {
+        "php": "^7.4",
+        "symfony/framework-bundle": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hl\\ImageBundle\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sven Kuhn",
+            "email": "kuhn@holsterlabs.de"
+        }
+    ]
+}
