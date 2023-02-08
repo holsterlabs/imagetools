@@ -11,8 +11,8 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
  */
 class ImageBundle extends Bundle
 {
-    public function getContainerExtension(): ?ExtensionInterface
-    {
-        // return new LogReaderExtension();
-    }
+    // public function getContainerExtension(): ?ExtensionInterface
+    // {
+    //     // return new LogReaderExtension();
+    // }
 }
