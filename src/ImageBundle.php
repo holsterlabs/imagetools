@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
  * ImageBundle
- * v1.0.0
+ * v0.0.1
  */
 class ImageBundle extends Bundle
 {
