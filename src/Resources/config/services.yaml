@@ -1,6 +1,6 @@
-# services:
-#     app.twig_extension:
-#         class: Hl\ImageBundle\Twig\TwigImageExtension
-#         public: false
-#         tags:
-#             - { name: twig.extension }
+services:
+    app.twig_extension:
+        class: Hl\ImageBundle\Twig\TwigImageExtension
+        public: false
+        tags:
+            - { name: twig.extension }
