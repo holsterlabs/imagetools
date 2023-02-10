@@ -4,7 +4,7 @@ namespace Hl\ImageBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use Hl\ImageBundle\DependencyInjection\TwigExtension;
+use Hl\ImageBundle\DependencyInjection\ImageExtension;
 
 /**
  * ImageBundle
@@ -14,6 +14,6 @@ class ImageBundle extends Bundle
 {
     public function getContainerExtension(): ?ExtensionInterface
     {
-        return new TwigExtension();
+        return new ImageExtension();
     }
 }
