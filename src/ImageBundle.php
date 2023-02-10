@@ -8,7 +8,7 @@ use Hl\ImageBundle\DependencyInjection\TwigExtension;
 
 /**
  * ImageBundle
- * v1.0.2
+ * v1.0.3
  */
 class ImageBundle extends Bundle
 {
