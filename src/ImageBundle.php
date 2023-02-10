@@ -8,7 +8,7 @@ use Hl\ImageBundle\DependencyInjection\ImageExtension;
 
 /**
  * ImageBundle
- * v1.0.3
+ * v1.0.4
  */
 class ImageBundle extends Bundle
 {
