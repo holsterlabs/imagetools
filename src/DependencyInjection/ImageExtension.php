@@ -6,13 +6,13 @@ namespace Hl\ImageBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class ImageExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $containerBuilder)
     {
-        $loader = new XmlFileLoader(
+        $loader = new YamlFileLoader(
             $containerBuilder,
             new FileLocator(
                 __DIR__ . '/../Resources/config'
