@@ -1,6 +1,6 @@
 <?php
 
-namespace Hl\ImageBundle;
+namespace Hl\ImageTools;
 
 use Hl\ImageBundle\Driver;
 use Hl\ImageBundle\Driver\DefaultDriver;
