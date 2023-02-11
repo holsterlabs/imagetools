@@ -2,10 +2,9 @@
 
 namespace Hl\ImageTools;
 
-use Hl\ImageBundle\Driver;
-use Hl\ImageBundle\Driver\DefaultDriver;
-use Hl\ImageBundle\Driver\GifDriver;
-use Hl\ImageBundle\Driver\WebPDriver;
+use Hl\ImageTools\Driver\DefaultDriver;
+use Hl\ImageTools\Driver\GifDriver;
+use Hl\ImageTools\Driver\WebPDriver;
 
 class Image
 {
