@@ -1,6 +1,6 @@
 <?php
 
-namespace Hl\ImageBundle\Driver;
+namespace Hl\ImageTools\Driver;
 
 class WebPDriver extends AbstractGdDriver
 {

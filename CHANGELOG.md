@@ -1,0 +1,9 @@
+# Changelog
+
+## [Unreleased](https://github.com/holsterlabs/imagetools/tree/HEAD)
+
+## [1.0.6](https://github.com/holsterlabs/imagetools/compare/1.0.5...1.0.6) - 2023-02-11
+
+### Removed
+
+-   Twig-Extension
