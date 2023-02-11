@@ -1,14 +1,13 @@
 {
-    "name": "holsterlabs/image-bundle",
+    "name": "holsterlabs/imagetools",
     "description": "",
-    "type": "symfony-bundle",
     "require": {
         "php": "^7.4",
         "symfony/framework-bundle": "^5.2"
     },
     "autoload": {
         "psr-4": {
-            "Hl\\ImageBundle\\": "src/"
+            "Hl\\ImageTools\\": "src/"
         }
     },
     "license": "MIT",
