@@ -2,7 +2,7 @@
     "name": "holsterlabs/imagetools",
     "description": "",
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "symfony/framework-bundle": "^5.2"
     },
     "autoload": {
