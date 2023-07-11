@@ -2,9 +2,8 @@
 
 namespace Hl\ImageTools;
 
-use Hl\ImageTools\Driver\DefaultDriver;
-use Hl\ImageTools\Driver\GifDriver;
-use Hl\ImageTools\Driver\WebPDriver;
+use Symfony\Component\Mime\MimeTypes;
+use Hl\ImageTools\Driver as Driver;
 
 class Image
 {
@@ -19,6 +18,7 @@ class Image
     protected $imageHeight;
     protected $imageMimetype;
     protected $imageType;
+    protected $imageTargetFileExtension;
     protected $imageWidth;
     private $baseImage;
 
@@ -44,6 +44,7 @@ class Image
         'svg' => 'image/svg+xml',
         'svgz' => 'image/svg+xml',
         'webp' => 'image/webp',
+        'pdf' => 'application/pdf',
     ];
 
     protected $fileExtensions = [
@@ -66,6 +67,22 @@ class Image
         $this->baseImage = $image;
         $data = $this->getImageData($image);
 
+        if ($data === false) {
+            $mimeTypes = new MimeTypes();
+            $mimeType = $mimeTypes->guessMimeType($image);
+            if ($mimeType === 'image/svg+xml') {
+                $data = Driver\SvgDriver::getSizes($image);
+                $data['3'] = $data['0'] . 'x' . $data['1'];
+                $data['mime'] = 'image/svg+xml';
+            }
+            if ($mimeType === 'application/pdf') {
+                $data = Driver\PdfDriver::getSizes($image);
+                $data['3'] = $data['0'] . 'x' . $data['1'];
+                $data['mime'] = 'application/pdf';
+                $this->setImageTargetFileExtension('jpg');
+            }
+        }
+
         $this->setImageWidth($data['0']);
         $this->setImageHeight($data['1']);
         $this->setImageDimensions($data['3']);
@@ -86,9 +103,12 @@ class Image
 
     protected function getImageData($image)
     {
-        $data = getImageSize($image);
-        if (!$data) {
-            throw new \InvalidArgumentException($image . ' is not a valid imageResource');
+        if (function_exists('getimagesize')) {
+            $data = @getimagesize($image);
+        }
+
+        if ($data === false) {
+            return false;
         }
 
         return $data;
@@ -106,13 +126,20 @@ class Image
     {
         switch ($this->getimageType()) {
             case 'webp':
-                $image = new WebPDriver($this->baseImage);
+                $image = new Driver\WebPDriver($this->baseImage);
                 break;
             case 'gif':
-                $image = new GifDriver($this->baseImage);
+                $image = new Driver\GifDriver($this->baseImage);
+                break;
+            case 'pdf':
+                $image = new Driver\PdfDriver($this->baseImage);
+                break;
+            case 'svg':
+            case 'svgz':
+                $image = new Driver\SvgDriver($this->baseImage);
                 break;
             default:
-                $image = new DefaultDriver($this->baseImage);
+                $image = new Driver\DefaultDriver($this->baseImage);
         }
 
         foreach ($this->actions as $action) {
@@ -155,6 +182,27 @@ class Image
                 $this->setImageType($pathInfo['extension']);
                 $this->setImageFileExtension($pathInfo['extension']);
                 $this->setImageMimetype($this->mimeTypes[$pathInfo['extension']]);
+            }
+
+            if (file_exists($pathInfo['dirname']) && is_dir($pathInfo['dirname'])) {
+                $this->setImageDirName($pathInfo['dirname']);
+            }
+
+            if ($pathInfo['filename']) {
+                $this->setImageFileName($pathInfo['filename']);
+            }
+        }
+    }
+
+    public function updateTargetPath($filePath)
+    {
+        if ($filePath) {
+            $pathInfo = pathinfo($filePath);
+
+            if (in_array($pathInfo['extension'], $this->getEditableTypes())) {
+                // $this->setImageType($pathInfo['extension']);
+                // $this->setImageFileExtension($pathInfo['extension']);
+                // $this->setImageMimetype($this->mimeTypes[$pathInfo['extension']]);
             }
 
             if (file_exists($pathInfo['dirname']) && is_dir($pathInfo['dirname'])) {
@@ -301,6 +349,23 @@ class Image
         $this->imageType = $imageType;
 
         return $this;
+    }
+
+    public function getImageTargetFileExtension()
+    {
+        return $this->imageTargetFileExtension ?? $this->imageFileExtension;
+    }
+
+    public function setImageTargetFileExtension($imageTargetFileExtension)
+    {
+        $this->imageTargetFileExtension = $imageTargetFileExtension;
+
+        return $this;
+    }
+
+    public function getImageTargetFilePath()
+    {
+        return $this->imageDirName . '/' . $this->imageFileName . '.' . $this->getImageTargetFileExtension();
     }
 
     public function getimageWidth()
